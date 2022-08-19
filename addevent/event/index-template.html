@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AddEvent</title>
+  <meta name="Description" content="" />
+
+  <!-- Open graph meta tags -->
+  <meta property="og:title" content="{{title}}" />
+  <meta property="og:description" content="{{description}}" />
+  <meta property="og:image" content="https://cdn.addevent.com/libs/imgs/logofs.png" />
+
+  <!-- Twitter cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="" />
+  <meta name="twitter:title" content="{{title}}" />
+  <meta name="twitter:description" content="{{description}}" />
+  <meta name="twitter:image" content="https://cdn.addevent.com/libs/imgs/logofs.png" />
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,width=device-width" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://www.addevent.com/event/{{event-id}}" />
+
+  <!-- Fonts and stylesheet -->
+  <link type="text/css" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined"
+    rel="stylesheet" media="all" />
+  <link type="text/css" href="https://cdn.addevent.com/libs/evt/css/events.landingpage.v2021.css" rel="stylesheet"
+    media="all" />
+
+  <!-- jQuery + jQuery UI + landing page script (DON'T REMOVE) -->
+  <script type="text/javascript" src="https://cdn.addevent.com/libs/jquery/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.addevent.com/libs/evt/js/events.landingpage.v20210916.js"></script>
+  <script type="text/javascript" src="https://cdn.addevent.com/libs/general/qrcode.min.js" async defer></script>
+  <script type="text/javascript" src="https://cdn.addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+
+  <style>
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-family: 'Work Sans', sans-serif;
+      vertical-align: baseline;
+      box-sizing: border-box;
+      background: none;
+      font-size: 100%;
+    }
+
+    html {
+      font-size: 62.5%
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+
+    li {
+      margin: 1rem;
+    }
+
+    ol,
+    ul {
+      margin: 1rem 0 0 1rem
+    }
+
+    sup, .sup {
+      vertical-align: super;
+      font-size: 1.4rem;
+    }
+
+    .content-wrapper {
+      width: 100%;
+      position: relative;
+      box-shadow: 0 0 20px 0 rgb(37, 48, 56);
+      overflow: hidden;
+    }
+
+    .nav,
+    .content-wrapper {
+      max-width: 775px;
+      margin: auto;
+    }
+
+    .nav {
+      margin-bottom: 1rem;
+    }
+
+    .content-text {
+      padding: 2rem 0 1rem;
+      max-width: 600px;
+      font-size: 1.4rem;
+      line-height: 1.5;
+    }
+
+    .content-note {
+      margin: 2rem 0;
+      color: #0c3b5d;
+      font-style: italic;
+      font-size: 1.25rem;
+    }
+
+    strong,
+    b {
+      font-weight: 600;
+    }
+
+    .button, .button-register-t1 {
+      padding: 0;
+    }
+
+    .buttonregister, .button .addeventatc {
+      background-color: rgb(12, 59, 93)!important;
+      color: #bf9c67!important;
+      padding: 1.5rem 5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 0 5px 0 rgb(37, 48, 56);
+      border: none;
+      content: "RSVP NOW";
+    }
+
+    .buttonregister:hover, .button .addeventatc:hover {
+      background-color: rgb(32, 62, 83)!important;
+      color: #c9b9a1!important;
+      cursor: pointer;
+    }
+
+    .buttonregister:active, .button .addeventatc:active {
+      background-color: rgb(32, 62, 83)!important;
+      box-shadow: none;
+    }
+
+    .bg-image-side {
+      background: url('https://pchs-public-media.s3.us-east-2.amazonaws.com/info_session_page_image.png');
+      height: calc(1355px / 1.5);
+      width: calc(317px / 1.5);
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: .15;
+      transition: opacity 1s;
+      -webkit-transition: opacity 1s;
+    }
+
+    @media only screen and (min-width: 850px) {
+      .bg-image-side {
+        opacity: 1;
+      }
+    }
+
+    main {
+      font-size: 1rem;
+      margin-left: 2rem;
+      position: absolute;
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      right: 50%;
+      transform: translateX(50%);
+      background: rgb(12, 59, 93);
+      background: linear-gradient(90deg, rgba(12, 59, 93, 1) 60%, rgb(85, 117, 142) 80%, rgb(227, 233, 237) 100%);
+      width: 100%;
+      max-width: 975px;
+    }
+
+    .eventopts .co-t1 i {
+      color: #0c3b5d;
+    }
+
+    .session {
+      margin-left: 2rem;
+    }
+
+    .session-type {
+      text-transform: uppercase;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: .5em;
+      color: #bf9c67;
+    }
+
+    .session-title {
+      text-transform: capitalize;
+      margin-top: 2.5rem;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffff;
+      max-width: 590px;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .session-date {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: #bf9c67;
+      line-height: 1;
+    }
+
+    #timezone-select, #timezone-select i {
+      color: #bf9c67;
+    }
+
+    .session-time {
+      font-size: 2.4rem;
+      font-weight: 500;
+      color: #bf9c67;
+      margin: 0.25rem 0 2rem 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .opt {
+      margin: 0 1rem;
+    }
+    
+    .sharepop {
+    	left: -300vw;
+      	position: fixed;
+	}
+    
+    .sharepop.show {
+      z-index: 2;
+      opacity: 1;
+      right: auto;
+      left: 50%;
+      margin: 0px 0px 0px -230px;
+    }
+  </style>
+  <script async defer>
+    window.onload = function () {
+      const date = new Date(document.querySelector('.session-date').getAttribute('data-date-start-weekday'));
+      const weekDay = date.toLocaleDateString('en-US', {weekday: 'long'});
+      const month = date.toLocaleDateString('en-US', {month: 'long'});
+      const style = document.createElement('style');
+      style.innerHTML = '.weekday::before { content: "' + weekDay + ', ' + month + '"; }';
+      document.head.append(style);
+      
+      const timezoneEl = document.querySelector('.gmt');
+      timezoneArr = timezoneEl.textContent.split(' ');
+      timezoneEl.textContent = timezoneArr[timezoneArr.length - 1];
+      
+      const youtubeEl = document.querySelectorAll('div[data-youtube-source]');
+      for (var i = 0; i < youtubeEl.length; i++) {
+        const iFrame = document.createElement('iframe');
+        iFrame.setAttribute('width', '560');
+        iFrame.setAttribute('height', '315');
+        iFrame.setAttribute('src', youtubeEl[i].dataset.youtubeSource);
+        iFrame.setAttribute('frameborder', '0');
+        iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iFrame.setAttribute('allowfullscreen', 'true');
+        youtubeEl[i].append(iFrame);
+        youtubeEl[i].dataset.youtubeSource;
+      }
+
+      const removeSpaceDiv = document.querySelectorAll('.remove-space');
+      for (var i = 0; i < removeSpaceDiv.length; i++) {
+        removeSpaceDiv[i].innerHTML = removeSpaceDiv[i].innerHTML.replace(/\s/g, '');  
+      }
+      
+      function resizeContainer() {
+        const main = document.getElementById('content');
+        const hh = main.clientHeight;
+        const mh = document.getElementById('header').clientHeight;
+        const ch = hh + mh;
+        document.getElementById('content-wrapper').setAttribute('style', 'height: ' + ch + 'px;')
+        main.setAttribute('style', 'top: ' + mh + 'px;')
+      };
+      resizeContainer();
+      window.addEventListener('resize', function (event) {
+        resizeContainer();
+      }, true);
+    };
+  </script>
+</head>
+
+<body>
+  <div class="nav">
+    <a href="https://www.pacificcollege.edu/news/calendar" style="color:#0c3b5d;">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0c3b5d">
+        <title>arrow-back</title>
+        <path
+          d="M12 9.059v-2.559c0-0.256-0.098-0.512-0.293-0.708-0.195-0.195-0.451-0.292-0.707-0.292s-0.512 0.097-0.707 0.292l-6.293 6.208 6.293 6.207c0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293 0.293-0.452 0.293-0.707v-2.489c2.75 0.068 5.755 0.566 8 3.989v-1c0-4.633-3.5-8.443-8-8.941z">
+        </path>
+      </svg>
+      Pacific College of Health and Science Calendar
+    </a>
+  </div>
+  {{block:share}}
+  <div id="content-wrapper" class="content-wrapper">
+    <header id="header">
+      <div class="session">
+        <div class="session-type">
+          Info Session
+        </div>
+        <p class="session-title">
+          {{title}}
+        </p>
+        <p class="session-date" data-date-start-weekday="{{date-start-date}}">
+          <span class="weekday"></span>&nbsp;{{date-start-day-24h}}
+        </p>
+        <div class="session-time">
+          <div>
+            <span class="remove-space">{{date-start-hour}}:{{date-start-minute}}
+            <sup>{{date-start-ampm}}</sup></span>
+            &nbsp;–&nbsp;
+            <span class="remove-space">{{date-end-hour}}:{{date-end-minute}}
+              <sup>{{date-end-ampm}}</sup></span>&nbsp;<sup class="gmt">{{date-time-abbr}}</sup>
+          </div>
+        </div>
+      </div>
+      <div class="bg-wrapper">
+        <div class="bg-image-side"></div>
+      </div>
+    </header>
+    <main id="content">
+      <div class="content-text">
+        {{description-formatted}}
+      </div>
+      <div style="display:flex; align-items:center;">
+        <a href="{{location}}"><button class="buttonregister">RSVP NOW</button></a>
+        <div class="opt">
+            <div class="share">
+                <div class="rel"><i class="material-icons-outlined">share</i></div>
+            </div>
+        </div>
+      </div>
+      <div class="content-note">
+        <p>
+          Questions? Call us at (212) 982-3456 for more information.
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

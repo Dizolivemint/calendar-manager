@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+      html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,  figure, figcaption, footer, header, hgroup,  menu, nav, output, ruby, section, summary, time, mark, audio, video {  
+        margin: 0;  
+        padding: 0;  
+        border: 0;   
+        font-family: 'Work Sans', sans-serif;
+        vertical-align: baseline; 
+        box-sizing: border-box;
+      }
+      body, html {
+        height: 100%;
+        font-size: 100%;
+      }
+      li {
+        margin: 1rem
+      }
+      ol, ul, .btn-action-primary {
+        margin: 1rem 0 0 1rem
+      }
+      sup {
+        vertical-align: super;
+        font-size: 1.5rem;
+      }
+      .content-wrapper {
+        width: 100%;
+        max-width: 975px;
+        margin: auto;
+        position: relative;
+        box-shadow: 0 0 20px 0 rgb(37, 48, 56);
+      }
+      .content-text {
+        padding: 2rem 0;
+        max-width: 600px;
+        font-size: 1.5rem;
+      }
+      .content-text p {
+        line-height: 1.5;
+      }
+      .content-note {
+        margin: 4rem 0;
+        color: #0c3b5d;
+        font-style: italic;
+        font-size: 1.5rem;
+      }
+      strong, b {
+        font-weight: 600;
+      }
+      .btn-action-primary {
+        background-color: rgb(12,59,93);
+        color: #bf9c67;
+        padding: 1.5rem 5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        box-shadow: 0 0 5px 0 rgb(37, 48, 56);
+        border: none;
+      }
+      .btn-action-primary:hover {
+        background-color: rgb(32, 62, 83);
+        color: #c9b9a1;
+        cursor: pointer;
+      }
+      .btn-action-primary:active {
+        background-color: rgb(32, 62, 83);
+        box-shadow: none;
+      }
+      .bg-image-side {
+          background: url('info_session_page_image.png');
+          height: 1355px;
+          width: 317px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: .15
+      }
+      @media only screen and (min-width: 850px) {
+        .bg-image-side {
+          opacity: 1;
+        }
+      }
+      main {
+        font-size: 1rem;
+        margin-left: 2rem;
+        position: absolute;
+        top: 280px;
+      }
+      header {
+        position: absolute;
+        top: 0;
+        right: 50%;
+        transform: translateX(50%);
+        background: rgb(12,59,93);
+        background: linear-gradient(90deg, rgba(12,59,93,1) 60%, rgb(85, 117, 142) 80%, rgb(227, 233, 237) 100%);
+        height: 280px;
+        width: 100%;
+        max-width: 975px;
+        z-index: -20;
+      }
+      .session {
+        margin-left: 2rem;
+      }
+      .session-type {
+        text-transform: uppercase;
+        margin-top: 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: .5em;
+        color: #bf9c67;
+      }
+      .session-title {
+        text-transform: capitalize;
+        margin-top: 2.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      .session-date {
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin-top: 8px;
+        color: #bf9c67;
+      }
+      .session-time {
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin-top: 4px;
+        color: #bf9c67;
+      }
+    </style>
+    <script async defer>
+      window.onload = function () {
+        function resizeContainer () { 
+          document.getElementById('content-wrapper').setAttribute('style', 'height: ' + document.body.scrollHeight + 'px;')
+        };
+        resizeContainer();
+        window.onresize = resizeContainer();
+      };
+      
+    </script>
+  </head>
+  <body>
+    <div id="content-wrapper" class="content-wrapper">
+      <header>
+        <div class="session">
+          <p class="session-type">
+            Info Session
+          </p>
+          <p class="session-title">
+            Holistic Nursing Programs
+          </p>
+          <p class="session-date">
+            Wednesday, May 18
+          </p>
+          <p class="session-time">
+            1:00<sup>PM</sup> – 2:00<sup>PM (EDT)</sup>
+          </p>
+        </div>
+        <div class="bg-wrapper">
+          <div class="bg-image-side"></div>
+        </div>
+      </header>
+      <main>
+        <div class="content-text">
+          <p><strong>Discover the Roots of Nursing Through the Prism of Holism! Learn About the Flexible Online Programs-–From Home</strong></p>
+          <ul>
+            <li>RN to BSN Completion Program and Holistic Nursing Certificate</li>
+            <li>Thoughtful mixture of synchronous and asynchronous classes</li>
+            <li>The unique, sustainable RN to BSN program is completely online except for:
+              <ul>
+                <li>A 3-day retreat in NY (online option)</li>
+                <li>Leadership and community clinic shifts that can be done in your area</li>
+              </ul>
+            </li>
+          </ul>
+          <p>Pacific College's nursing programs change you personally and professionally and even impact your friends, family and clients. Become part of a cohort-wide support system over the course of the program. We'll cover:</p>
+          <ul>
+            <li>Overviews of both programs</li>
+            <li>How the RN to BSN has been endorsed by the AHNCC</li>
+            <li>Holistic nursing’s position in today’s healthcare environment</li>
+            <li>The admissions process</li>
+            <li>Financial aid</li>
+          </ul>
+        </div>
+        <button class="btn-action-primary">RSVP NOW</button>
+        <div class="content-note">
+          <p>
+            Questions? Call us at (212) 982-3456 for more information.
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

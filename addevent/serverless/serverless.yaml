@@ -1,0 +1,63 @@
+app: event-calendar
+org: pacificcollege
+service: events
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-plugin-tracing
+  - serverless-dynamodb-local
+  - serverless-offline
+    
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 128
+  profile: pchs-serverless
+
+  stage: ${opt:stage, 'production'}
+  region: ${opt:region, 'us-east-2'}
+
+  apiGateway:
+    apiKeys:
+      - ${self:provider.stage}-apikey
+
+  tracing:
+    lambda: true
+    apiGateway: true
+
+  environment:
+    # AddEvent
+    ADDEVENT_TOKEN: ${param:ADDEVENT_TOKEN}
+
+  logs:
+    # Enable API Gateway logs
+    restApi: true
+
+# For API endpoint testing
+#####
+custom:
+  serverless-offline:
+    port: 3003
+
+functions:
+  # Get Events from AddEvent
+  #####
+  GetEvents:
+    handler: src/getEvents.handler
+    events:
+      - http:
+          method: post
+          path: event
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(models/get-events-model.json)}
+
+  GetAllEvents:
+    handler: src/getAllEvents.handler
+    events:
+      - http:
+          method: get
+          path: events
+          cors: true

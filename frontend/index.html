@@ -1,0 +1,262 @@
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+<script>
+  class Calendar {
+    constructor(root) {
+      this.datetime = new Date()
+      this.configGrid = {
+        color: "#fff",
+        backgroundColor: "#000",
+        width: screen.width / 7,
+        height: screen.width / 7,
+        fontSize: 30,
+        fontType: 'sans-serif',
+        fontWeight: 'bold',
+        dayNameHeight: 20,
+        padding: 20,
+        margin: 20
+      }
+      this.configDayName = {
+        height: this.configGrid.dayNameHeight,
+        width: this.configGrid.width,
+        color: "#fff",
+        fontSize: 30,
+        fontType: 'sans-serif',
+        fontWeight: 'bold',
+        padding: 20
+      }
+      this.configMonthYear = {
+        height: this.configGrid.height * 2,
+        width: screen.width,
+        color: "#fff",
+        fontSize: Math.round(this.configDayName * 1.5),
+        fontType: 'sans-serif',
+        fontWeight: 400,
+        padding: 20,
+        buttonPadding: 10,
+      }
+      this.root = document.getElementById(root)
+    }
+
+    /** 
+     * gets the month
+     *
+    */
+    getMonth(month) {
+      return this.datetime.getMonth() + 1
+    }
+
+    /** 
+     * sets the month
+     *
+    */
+    setMonth(month) {
+      this.datetime.setMonth(month - 1)
+    }
+
+    /** 
+     * gets the year
+     *
+    */
+    getYear() {
+      return this.datetime.getFullYear()
+    }
+
+    /** 
+     * sets the year
+     *
+    */
+    setYear(year) {
+      this.datetime.setFullYear(year)
+    }
+
+    /** 
+     * @returns the number of days in a month
+     *
+    */
+    getDaysInMonth() {
+      const month = this.getMonth()
+      return new Date('2022', month, 0).getDate()
+    }
+    
+    /** 
+     * @returns the start day of the month
+     *
+    */
+    getStartDayOfMonth() {
+      return new Date(`${this.getMonth()}/01/${this.getYear()}`).getDay()
+    }
+
+    /** 
+     * @returns SVG week header with grid and day names
+     *
+    */
+    componentDayHeader() {
+      const { 
+        color,
+        width,
+        height,
+        fontSize, 
+        fontType, 
+        fontWeight
+      } = this.configDayName
+
+      let weekDayGrid, weekDayText
+      for (let x = 0; x < 7; x++) {
+        weekDayGrid += `<rect
+          stroke='${color}'
+          width='${this.configGrid.width}'
+          height='${fontSize + height}'
+          x=${width * x}
+          y=0
+        />`
+
+        weekDayText += `<text 
+          x=${width * x + width / 2} 
+          y=${fontSize}
+          style='
+            fill:${color};
+            font:${fontWeight} ${fontSize}px ${fontType};
+            text-anchor:middle;
+            dominant-baseline:middle;
+          '
+        >
+          ${new Date(`01/${x + 1}`).toString().substr(0, 3)}
+        </text>`
+      }
+        
+      return {
+        weekDayGrid,
+        weekDayText
+      }
+    }
+
+    /** 
+     * @returns SVG calendar day grid
+     *
+    */
+    componentDayGrid() {
+      const { 
+        color, 
+        width,
+        height, 
+        fontSize, 
+        fontType, 
+        fontWeight,
+        dayNameHeight,
+        padding,
+        margin
+      } = this.configGrid
+
+      const start = this.getStartDayOfMonth()
+
+      let monthDayGrid, monthDayText
+      for (let x = 0; x < this.getDaysInMonth() + start; x++) {
+        monthDayGrid += `<rect 
+          stroke='${color}'
+          width='${width}'
+          height='${height}'
+          x=${width * (x % 7)}
+          y=${Math.floor(x / 7) * width + fontSize + dayNameHeight}
+        />`
+        
+        monthDayText += x >= start ? `<text 
+          x=${width * (x % 7) + 10} 
+          y=${Math.floor(x / 7) * width + fontSize * 2 + dayNameHeight} 
+          style='
+            fill:${color};
+            font:${fontWeight} ${fontSize}px ${fontType};
+          '
+        >
+            ${x + 1 - start}
+        </text>` : ``
+      }
+
+      return {
+        monthDayGrid,
+        monthDayText
+      }
+    }
+
+    /** 
+     * @returns month year header components
+     *
+    */
+    componentMonthYearHeader() {
+      const prevButtonId = "btnMonthPrev"
+      const prevButton = document.createElement('button')
+      prevButton.setAttribute('style', 'width:40px;')
+      prevButton.setAttribute('id', prevButtonId)
+      prevButton.innerHTML = `<svg viewBox="0 0 40 40">
+        <polyline points="40,40 0,20 40,0"/>
+      </svg>`
+      prevButton.addEventListener('click', event => this.handleMonthChange(event, -1))
+
+      const nextButtonId = "btnMonthNext"
+      const nextButton = document.createElement('button')
+      nextButton.setAttribute('style', 'width:40px;')
+      prevButton.setAttribute('id', nextButtonId)
+      nextButton.innerHTML = `<svg viewBox="0 0 40 40">
+        <polyline points="0,0 40,20 0,40"/>
+      </svg>`
+      nextButton.addEventListener('click', event => this.handleMonthChange(event, 1))
+
+      const monthYearHeading = document.createElement('div')
+      monthYearHeading.setAttribute('style', 'text-align:center;color:#fff;')
+      const month = this.datetime.toLocaleString('default', { month: 'long' })
+      monthYearHeading.textContent = `${month} ${this.getYear()}`
+
+      return {
+        nextButton,
+        prevButton,
+        monthYearHeading
+      }
+    }
+
+    handleMonthChange = (event, increment) => {
+      event.stopPropagation()
+      const month = this.getMonth(), year = this.getYear()
+      let newMonth = month + increment, newYear = year
+      if (newMonth < 1) {
+        newMonth = 12
+        newYear--
+        this.setYear(newYear)
+      }
+      if (newMonth > 12) { 
+        newMonth = 1
+        newYear++
+        this.setYear(newYear)
+      }
+      this.setMonth(newMonth)
+      this.render()
+    }
+
+    render() {
+      // Load components and configuration
+      const { monthDayGrid, monthDayText } = this.componentDayGrid()
+      const { weekDayGrid, weekDayText } = this.componentDayHeader()
+      const { width, dayNameHeight, fontSize, backgroundColor, padding, margin } = this.configGrid
+      const { nextButton, prevButton, monthYearHeading } = this.componentMonthYearHeader()
+
+      // Apply root element configuration
+      this.root.setAttribute('style', `background-color:${backgroundColor};padding:${padding};margin:${margin};`)
+
+      // Update root element with components
+      this.root.innerHTML = `
+        <svg viewBox='0 0 ${screen.width} ${width * 5 + dayNameHeight + fontSize}'>
+          ${weekDayGrid}${weekDayText}
+          ${monthDayGrid}${monthDayText}
+        </svg>
+      `
+      this.root.prepend(nextButton)
+      this.root.prepend(prevButton)
+      this.root.prepend(monthYearHeading)
+    }
+  }
+
+  const calendar = new Calendar('root');
+
+  calendar.render()
+</script>
